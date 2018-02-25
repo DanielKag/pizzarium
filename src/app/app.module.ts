@@ -16,6 +16,7 @@ import { PizzaDetailsComponent } from './components/pizza-details/pizza-details.
 import {ButtonModule} from 'primeng/button';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {ToggleButtonModule} from 'primeng/togglebutton';
+import { ImageSelectorComponent } from './components/image-selector/image-selector.component';
 
 
 const routes: Routes = [
@@ -33,7 +34,8 @@ const routes: Routes = [
     TopComponent,
     SelectSizeComponent,
     SelectToppingsComponent,
-    PizzaDetailsComponent
+    PizzaDetailsComponent,
+    ImageSelectorComponent
   ],
   imports: [
     BrowserModule,
