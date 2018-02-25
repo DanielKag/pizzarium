@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ImageSelectorItem} from '../../../models'
-
+import {ImageSelectorItem} from '../../models'
+ 
 @Component({
   selector: 'app-order-details',  
   styleUrls: ['./order-details.component.css'],

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Pizza} from '../../../models';
+import {Pizza} from '../../models';
 
 @Component({
   selector: 'app-pizza-details',

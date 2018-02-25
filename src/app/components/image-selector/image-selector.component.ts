@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {ImageSelectorItem} from '../../../models';
+import {ImageSelectorItem} from '../../models';
 
 @Component({
   selector: 'image-selector',
