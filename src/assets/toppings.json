@@ -1,0 +1,24 @@
+[
+   {"value": "berries", "img": "../assets/berries.png"}, 
+   {"value": "brocoli", "img": "../assets/brocoli.png"}, 
+   {"value": "camamber", "img": "../assets/camamber.png"}, 
+   {"value": "cheese", "img": "../assets/cheese.png"}, 
+   {"value": "chilli", "img": "../assets/chilli.png"}, 
+   {"value": "garlic", "img": "../assets/garlic.png"}, 
+   {"value": "ginger", "img": "../assets/ginger.png"}, 
+   {"value": "lobster", "img": "../assets/lobster.png"}, 
+   {"value": "mashrooms", "img": "../assets/mashrooms.png"}, 
+   {"value": "olives", "img": "../assets/olives.png"}, 
+   {"value": "peperoni", "img": "../assets/peperoni.png"}, 
+   {"value": "pepper", "img": "../assets/pepper.png"}, 
+   {"value": "pickles", "img": "../assets/pickles.png"}, 
+   {"value": "shampinion", "img": "../assets/shampinion.png"}, 
+   {"value": "salad", "img": "../assets/salad.png"}, 
+   {"value": "shrimp", "img": "../assets/shrimp.png"}, 
+   {"value": "tomato", "img": "../assets/tomato.png"},
+   {"value": "nana", "img": "../assets/nana.png"}, 
+   {"value": "cherri", "img": "../assets/cherri.png"}, 
+   {"value": "green", "img": "../assets/green.png"}, 
+   {"value": "oyister", "img": "../assets/oyister.png"}
+]
+    
