@@ -20,7 +20,12 @@ import { httpMiddleware } from './reducers/http.middleware';
 import { ButtonModule } from 'primeng/button';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { GrowlModule } from 'primeng/growl';
+import {TabMenuModule} from 'primeng/tabmenu';
+import {MessageService} from 'primeng/components/common/messageservice'
+
 import { ImageSelectorComponent } from './components/image-selector/image-selector.component';
+
 
 
 const routes: Routes = [
@@ -52,9 +57,11 @@ export interface IPizzariumState {
     RouterModule.forRoot(routes),
     ButtonModule,
     SelectButtonModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    GrowlModule,
+    TabMenuModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

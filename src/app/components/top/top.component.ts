@@ -1,18 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import {MenuItem} from 'primeng/api';
 import { Router } from '@angular/router';
 import { select, NgRedux } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { IPizzariumState } from '../../app.module';
+import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 
+@AutoUnsubscribe() 
 @Component({
   selector: 'app-top',  
   styleUrls: ['./top.component.css'],
   template: `
-    <div class="top">
-      <span class="top-title">Pizzarium</span>
+    <div class="">
+      <h1 class="top-title">Pizzarium</h1>
+      
+      <p-tabMenu [model]="items" styleClass="top"></p-tabMenu>
       <span class="top-title">
-        <p-button label="Order" icon="fa fa-rocket" (click)="navigate('order')"></p-button>
-      <p-button [label]="cartLabel$ | async" icon="fa fa-shopping-cart" (click)="navigate('cart')"></p-button>
       </span>
     </div>
   `
@@ -20,17 +24,27 @@ import { IPizzariumState } from '../../app.module';
 export class TopComponent implements OnInit {
 
   public cartLabel$: Observable<string>;
+  private items: MenuItem[];
+  private cartSubscription: Subscription;
 
   constructor(private router: Router, private ngRedux: NgRedux<IPizzariumState>) { }
 
   ngOnInit() {
 
-    this.cartLabel$ = this.ngRedux.select(state => {     
+    this.items = [
+            {label: 'Order', icon: 'fa-rocket', routerLink: ['/order']},
+            {label: 'Cart', icon: 'fa-shopping-cart', routerLink: ['/cart']}            
+        ];
+
+
+    this.cartSubscription = this.ngRedux.select(state => {     
       
       return state.ui.orders.length > 0 
               ? 'Cart (' + state.ui.orders.length + ')'
               : 'Cart'
-    })
+    }).subscribe(cartLabel => {
+      this.items[1].label = cartLabel || 'Cart'
+    })    
 
   }
 
