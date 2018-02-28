@@ -14,6 +14,18 @@ export class AppComponent {
   title = 'app';
 
   constructor(private ngRedux: NgRedux<IDataFromServerState>) {
-    this.ngRedux.dispatch({type: 'ndv'});
+    this.ngRedux.dispatch({
+      type: 'GET_TOPPINGS',
+      payload: {
+        url: 'http://localhost:3000/toppings',
+        isHttp: true
+      }});
+    
+    this.ngRedux.dispatch({
+      type: 'GET_SIZES',
+      payload: {
+        url: 'http://localhost:3000/sizes',
+        isHttp: true
+      }});    
   }
 }

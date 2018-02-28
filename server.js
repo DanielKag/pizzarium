@@ -32,6 +32,12 @@ const toppings = [
   ];
 
 
+const sizes = [
+    {value: 'small', img: '../assets/pizza-small.png'}, 
+    {value: 'medium', img: '../assets/pizza-medium.png'}, 
+    {value: 'large', img: '../assets/pizza-large.png'}, 
+    {value: 'extra large', img: '../assets/pizza-extra.png'}
+  ];
 
 
 
@@ -42,6 +48,12 @@ const toppings = [
 
 
 
+// Enable CORS
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // Parsers for POST data
 app.use(bodyParser.json());
@@ -51,7 +63,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('/sizes', (req,res) => {
-    res.send({daniel: 2});
+    res.send(sizes);
 })
 
 app.get('/toppings', (req,res) => {

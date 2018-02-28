@@ -3,17 +3,18 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store'
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { combineReducers } from 'redux';
 
 import { AppComponent } from './app.component';
 import { OrderDetailsComponent } from './containers/order-details/order-details.component';
 import { CartComponent } from './containers/cart/cart.component';
 import { TopComponent } from './components/top/top.component';
-import { SelectSizeComponent } from './components/select-size/select-size.component';
-import { SelectToppingsComponent } from './components/select-toppings/select-toppings.component';
 import { PizzaDetailsComponent } from './components/pizza-details/pizza-details.component';
 import { environment } from '../environments/environment'
-import { IDataFromServerState, dataFromServer } from './reducers/data-from-server.reducer';
+import { IDataFromServerState, dataFromServerReducer } from './reducers/data-from-server.reducer';
+import { IUIState, uiReducer } from './reducers/ui.reducer';
+import { httpMiddleware } from './reducers/http.middleware';
 
 // PrimeNG
 import { ButtonModule } from 'primeng/button';
@@ -28,23 +29,19 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent },
 ];
 
-export interface IPizzariumState extends IDataFromServerState {
-}
-
 @NgModule({
   declarations: [
     AppComponent,
     OrderDetailsComponent,
     CartComponent,
     TopComponent,
-    SelectSizeComponent,
-    SelectToppingsComponent,
     PizzaDetailsComponent,
     ImageSelectorComponent
   ],
   imports: [
     NgReduxModule,
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     RouterModule.forRoot(routes),
     ButtonModule,
@@ -58,16 +55,20 @@ export class AppModule {
   
   constructor(ngRedux: NgRedux<any>,
               devTools: DevToolsExtension) {
-    const reducers = combineReducers<any>(Object.assign({}, dataFromServer));
-    let enhancers = [];
-    const rootReducer = (state, action) => {
-      return reducers(state, action);
-    }
 
+    const reducers = combineReducers<any>({
+                staticData: dataFromServerReducer,
+                ui: uiReducer
+            });
+    let enhancers = [];
+    
     if (!environment.production && devTools.isEnabled()) {
       enhancers = [...enhancers, devTools.enhancer()];
     }
 
-    ngRedux.configureStore(rootReducer, undefined, undefined, enhancers);
+    const middleswares = [];
+    middleswares.push(httpMiddleware);
+
+    ngRedux.configureStore(reducers, undefined, middleswares, enhancers);
   }
- }
+ } 

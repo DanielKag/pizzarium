@@ -16,6 +16,12 @@ export function dataFromServerReducer(state: IDataFromServerState = initialState
     let newState;
 
     switch (action.type) {
+        case 'GET_TOPPINGS_SUCCESS':
+            newState = Object.assign({}, state, { toppings: action.payload.response});
+            break;
+        case 'GET_SIZES_SUCCESS':
+            newState = Object.assign({}, state, { sizes: action.payload.response});
+            break;
         default:
             newState = state;
             break;
@@ -23,7 +29,3 @@ export function dataFromServerReducer(state: IDataFromServerState = initialState
     
     return newState;
 }
-
-export const dataFromServer = {
-    dataFromServerReducer
-};
