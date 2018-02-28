@@ -9,19 +9,19 @@ import { trigger, style, animate, transition } from '@angular/animations';
     trigger(
       'enterAnimation', [
         transition(':enter', [
-          style({transform: 'translateX(100%)', opacity: 0}),
-          animate('500ms', style({transform: 'translateX(0)', opacity: 1}))
+          style({transform: 'translateY(50%)', opacity: 0}),
+          animate('300ms', style({transform: 'translateY(0)', opacity: 1}))
         ]),
         transition(':leave', [
-          style({transform: 'translateX(0)', opacity: 1}),
-          animate('500ms', style({transform: 'translateX(100%)', opacity: 0}))
+          style({opacity: 1}),
+          animate('200ms', style({opacity: 0}))
         ])
       ])],
   template: `    
     <table border=0>      
       <tr *ngFor="let row of dataByRow">
                 <td *ngFor="let item of row"  (click)="selectItem(item)" style="position:relative">                
-                  <i [@enterAnimation] class="fa fa-check-circle fa-5x" *ngIf="selectedItems.has(item)" style="color: #24d224;position:absolute; top: 10px; left: 10px"></i>
+                  <i [@enterAnimation] class="fa fa-check-circle fa-5x checked-item" *ngIf="selectedItems.has(item)" [ngClass]="{'checked-item-multi': multiSelect, 'checked-item-single': !multiSelect}"></i>
                   <img [src]="item.img">                  
                 </td>
       </tr>
@@ -33,7 +33,7 @@ export class ImageSelectorComponent implements OnInit, OnChanges {
 
   @Input() data: ImageSelectorItem[] = [];
   @Input() itemsInRow: number = 5;
-  @Input() multiSelect: boolean = false;
+  @Input() multiSelect: boolean = false;  
   @Output() selectionChanged: EventEmitter<Set<ImageSelectorItem>> = new EventEmitter<Set<ImageSelectorItem>>()
   public dataByRow: ImageSelectorItem[][] = []
   public selectedItems = new Set();
@@ -41,38 +41,47 @@ export class ImageSelectorComponent implements OnInit, OnChanges {
   constructor() {    
    }
 
-  ngOnInit() {     
+  ngOnInit() {         
   }
 
   ngOnChanges(changes: SimpleChanges) {
 
-    if (changes['data']) {
+    if (changes['data']) {      
       for(let i=0;i<this.data.length;i++){        
           const row = Math.floor(i / this.itemsInRow);
           this.dataByRow[row] = this.dataByRow[row] || [];
           this.dataByRow[row].push(this.data[i]);
         }
+
+        this.clear();
+        
      }
   }
 
-  selectItem(item: string) {
+  clear() {
+    this.selectedItems.clear();
+        if(!this.multiSelect && this.data[0]) {
+          this.selectedItems.add(this.data[0])
+        }
+  }
+
+  selectItem(item: ImageSelectorItem) {
 
     if(this.selectedItems.has(item)) {
-      this.selectedItems.delete(item);
+
+      if(this.multiSelect) {
+        this.selectedItems.delete(item);
+      }
     } else {
 
       if(!this.multiSelect) {
         this.selectedItems.clear();
       }
 
-      this.selectedItems.add(item);
-    }    
+      this.selectedItems.add(item);             
+    }
+
 
     this.selectionChanged.emit(this.selectedItems);
-  }
-
-  clear() {
-    this.selectedItems.clear();
-  }
- 
+  } 
 }

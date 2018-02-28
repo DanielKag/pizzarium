@@ -29,6 +29,12 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent },
 ];
 
+export interface IPizzariumState {
+  staticData: IDataFromServerState, 
+  ui: IUIState
+}  
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,10 +59,10 @@ const routes: Routes = [
 })
 export class AppModule {
   
-  constructor(ngRedux: NgRedux<any>,
+  constructor(ngRedux: NgRedux<IPizzariumState>,
               devTools: DevToolsExtension) {
 
-    const reducers = combineReducers<any>({
+    const reducers = combineReducers<IPizzariumState>({
                 staticData: dataFromServerReducer,
                 ui: uiReducer
             });

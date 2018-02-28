@@ -38,6 +38,8 @@ export class OrderDetailsComponent {
  
   addOrder() {
     this.ngRedux.dispatch({type: 'ADD_ORDER', payload: this.currentOrder});
+    alert('Your order added was to the cart')
+    this.clear();    
   }
 
   clear() {

@@ -5,3 +5,17 @@
 .unselected-image {
     border: 5px transparent dashed;
 }
+
+.checked-item-multi {
+    color: #24d224
+}
+
+.checked-item-single {
+    color: #426098
+}
+
+.checked-item {
+    position:absolute; 
+    top: 10px; 
+    left: 10px
+}

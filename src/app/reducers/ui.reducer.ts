@@ -24,7 +24,6 @@ export function uiReducer(state: IUIState = initialState, action: IAction) {
     
     switch (action.type) {
         case 'ADD_ORDER':
-        debugger;
             newState = Object.assign({}, state, { orders: [...state.orders, action.payload] });
             break;
         case 'DELETE_ORDER':
