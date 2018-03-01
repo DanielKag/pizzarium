@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
-import {ImageSelectorItem} from '../../models';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
+import { ImageSelectorItem } from '../../models';
 import { trigger, style, animate, transition } from '@angular/animations';
 
 
@@ -20,16 +20,16 @@ import { trigger, style, animate, transition } from '@angular/animations';
   template: `    
     <table border=0>      
       <tr *ngFor="let row of dataByRow">
-                <td *ngFor="let item of row"  (click)="selectItem(item)" style="position:relative">                
+                <td *ngFor="let item of row"  (click)="selectItem(item)" class="item">                
                   <i [@enterAnimation] class="fa fa-check-circle fa-5x checked-item" *ngIf="selectedItems.has(item)" [ngClass]="{'checked-item-multi': multiSelect, 'checked-item-single': !multiSelect}"></i>
-                  <img [src]="item.img">                  
+                  <img [src]="item.img" [title]="item.value">                 
                 </td>
       </tr>
     </table>
   `,
   styleUrls: ['./image-selector.component.css']
 })
-export class ImageSelectorComponent implements OnInit, OnChanges {
+export class ImageSelectorComponent implements OnChanges {
 
   @Input() data: ImageSelectorItem[] = [];
   @Input() itemsInRow: number = 5;
@@ -37,12 +37,6 @@ export class ImageSelectorComponent implements OnInit, OnChanges {
   @Output() selectionChanged: EventEmitter<Set<ImageSelectorItem>> = new EventEmitter<Set<ImageSelectorItem>>()
   public dataByRow: ImageSelectorItem[][] = []
   public selectedItems = new Set();
-
-  constructor() {    
-   }
-
-  ngOnInit() {         
-  }
 
   ngOnChanges(changes: SimpleChanges) {
 
@@ -53,19 +47,11 @@ export class ImageSelectorComponent implements OnInit, OnChanges {
           this.dataByRow[row].push(this.data[i]);
         }
 
-        this.clear();
-        
-     }
+        this.clear();        
+      }
   }
 
-  clear() {
-    this.selectedItems.clear();
-        if(!this.multiSelect && this.data[0]) {
-          this.selectedItems.add(this.data[0])
-        }
-  }
-
-  selectItem(item: ImageSelectorItem) {
+  public selectItem(item: ImageSelectorItem): void {
 
     if(this.selectedItems.has(item)) {
 
@@ -83,5 +69,13 @@ export class ImageSelectorComponent implements OnInit, OnChanges {
 
 
     this.selectionChanged.emit(this.selectedItems);
-  } 
+  }
+
+  public clear(): void {
+    this.selectedItems.clear();
+    if(!this.multiSelect && this.data[0]) {
+      this.selectedItems.add(this.data[0])
+      this.selectionChanged.emit(this.selectedItems);
+    }
+  }
 }

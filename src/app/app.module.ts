@@ -10,9 +10,8 @@ import { AppComponent } from './app.component';
 import { OrderDetailsComponent } from './containers/order-details/order-details.component';
 import { CartComponent } from './containers/cart/cart.component';
 import { TopComponent } from './components/top/top.component';
-import { PizzaDetailsComponent } from './components/pizza-details/pizza-details.component';
 import { environment } from '../environments/environment'
-import { IDataFromServerState, dataFromServerReducer } from './reducers/data-from-server.reducer';
+import { IStaticDataState, staticDataReducer } from './reducers/static-data.reducer';
 import { IUIState, uiReducer } from './reducers/ui.reducer';
 import { httpMiddleware } from './reducers/http.middleware';
 
@@ -35,7 +34,7 @@ const routes: Routes = [
 ];
 
 export interface IPizzariumState {
-  staticData: IDataFromServerState, 
+  staticData: IStaticDataState, 
   ui: IUIState
 }  
 
@@ -46,7 +45,6 @@ export interface IPizzariumState {
     OrderDetailsComponent,
     CartComponent,
     TopComponent,
-    PizzaDetailsComponent,
     ImageSelectorComponent
   ],
   imports: [
@@ -70,7 +68,7 @@ export class AppModule {
               devTools: DevToolsExtension) {
 
     const reducers = combineReducers<IPizzariumState>({
-                staticData: dataFromServerReducer,
+                staticData: staticDataReducer,
                 ui: uiReducer
             });
     let enhancers = [];

@@ -1,9 +1,10 @@
 import {Message} from 'primeng/api';
-import {MessageService} from 'primeng/components/common/messageservice'
+import { MessageService } from 'primeng/components/common/messageservice'
 import { select, NgRedux } from '@angular-redux/store';
 import { Component, ViewChild} from '@angular/core';
 import { ImageSelectorItem } from '../../models'
-import { IOrder, IUIState } from '../../reducers/ui.reducer';
+import { IUIState } from '../../reducers/ui.reducer';
+import { Order } from '../../models';
 import { ImageSelectorComponent } from '../../components/image-selector/image-selector.component';
 
 @Component({
@@ -23,32 +24,39 @@ export class OrderDetailsComponent {
   @select(['staticData', 'sizes']) sizes$;
   @select(['staticData', 'toppings']) toppings$;
 
-   @ViewChild("sizesSelector") sizesRef: ImageSelectorComponent;
-   @ViewChild("toppingsSelector") toppingsRef: ImageSelectorComponent;
+  @ViewChild("sizesSelector") sizesRef: ImageSelectorComponent;
+  @ViewChild("toppingsSelector") toppingsRef: ImageSelectorComponent;
 
-  private currentOrder: IOrder = { selectedPizza: null, selectedToppings: [] };
+  private currentOrder: Order;
 
   constructor(private ngRedux: NgRedux<IUIState>, private messageService: MessageService) {
+    this.resetCurrentOrder();
   }
 
-  onToppingsSelectedChanged($event) {
+  public onToppingsSelectedChanged($event): void {
     this.currentOrder.selectedToppings = <ImageSelectorItem[]>Array.from($event);
   }
 
-  onSizeSelectedChanged($event) {
+  public onSizeSelectedChanged($event): void {
     this.currentOrder.selectedPizza = <ImageSelectorItem>Array.from($event)[0];
   }
  
-  addOrder() {
+  public addOrder(): void {
     this.ngRedux.dispatch({type: 'ADD_ORDER', payload: this.currentOrder});
-    //alert('')
     this.messageService.add({severity:'success', summary:'Pizzarium', detail:'Your order was added to the cart'});
 
     this.clear();    
   }
 
-  clear() {
+  public clear(): void {
+    this.resetCurrentOrder();
     this.sizesRef.clear();
     this.toppingsRef.clear();
+  }
+
+  private resetCurrentOrder(): void {
+    this.currentOrder = new Order();
+    this.currentOrder.selectedPizza = null;
+    this.currentOrder.selectedToppings = [];
   }
 }

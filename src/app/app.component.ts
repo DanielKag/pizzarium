@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
-import { IDataFromServerState } from './reducers/data-from-server.reducer';
+import { IStaticDataState } from './reducers/static-data.reducer';
 
 @Component({
   selector: 'app-root',  
@@ -11,9 +11,7 @@ import { IDataFromServerState } from './reducers/data-from-server.reducer';
   `
 })
 export class AppComponent {
-  title = 'app';
-
-  constructor(private ngRedux: NgRedux<IDataFromServerState>) {
+  constructor(private ngRedux: NgRedux<IStaticDataState>) {
     this.ngRedux.dispatch({
       type: 'GET_TOPPINGS',
       payload: {

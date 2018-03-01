@@ -1,21 +1,15 @@
 import { IAction } from './action'
 import { ImageSelectorItem } from '../models'
-
-export interface IOrder {
-    selectedPizza: ImageSelectorItem;
-    selectedToppings: ImageSelectorItem[];
-}
+import { Order } from '../models';
 
 export interface IUIState {
-    orders: IOrder[],
-    currentOrder: IOrder,
-    currentPage: string
+    orders: Order[],
+    totalPrice: number
 }
 
 export const initialState: IUIState = {
     orders: [],
-    currentOrder: null,
-    currentPage: ''
+    totalPrice: 0
 };
 
 export function uiReducer(state: IUIState = initialState, action: IAction) {
@@ -24,10 +18,14 @@ export function uiReducer(state: IUIState = initialState, action: IAction) {
     
     switch (action.type) {
         case 'ADD_ORDER':
-            newState = Object.assign({}, state, { orders: [...state.orders, action.payload] });
+            newState = Object.assign({}, state, { orders: [...state.orders, action.payload], totalPrice: state.totalPrice + action.payload.getTotalPrice() });
             break;
         case 'DELETE_ORDER':
-            newState = Object.assign({}, state, {orders: state.orders.filter((order, index) => index !== action.payload)})
+            let newPrice = state.totalPrice - action.payload.order.getTotalPrice();
+            newState = Object.assign({}, state, {orders: state.orders.filter((order, index) => index !== action.payload.pizzaIndex), totalPrice: newPrice });
+            break;
+        case 'CLEAR_CART':
+            newState = Object.assign({}, state, {orders: [], totalPrice: 0})
             break;
         default:
             newState = state;

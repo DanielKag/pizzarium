@@ -1,0 +1,28 @@
+.cart-container {
+    display:flex;
+    flex-direction: column;
+}
+
+.order {
+    border-style:solid;
+    width: max-content;
+    margin-right: 10px;
+    font-size:25px;
+    width: 330px;
+    margin-bottom: 15px;
+}
+
+.order-pizza-size {
+    display: flex;
+    justify-content: space-between;
+}
+
+.topping-image {
+    height:42px;
+    width:42px;
+    vertical-align:middle;
+}
+
+.delete-pizza:hover {
+    cursor: pointer;
+}

@@ -8,35 +8,35 @@ const app = express();
 
 
 const toppings = [
-    {value: 'berries', img: '../assets/berries.png'}, 
-    {value: 'brocoli', img: '../assets/brocoli.png'}, 
-    {value: 'camamber', img: '../assets/camamber.png'}, 
-    {value: 'cheese', img: '../assets/cheese.png'}, 
-    {value: 'chilli', img: '../assets/chilli.png'}, 
-    {value: 'garlic', img: '../assets/garlic.png'}, 
-    {value: 'ginger', img: '../assets/ginger.png'}, 
-    {value: 'lobster', img: '../assets/lobster.png'}, 
-    {value: 'mashrooms', img: '../assets/mashrooms.png'}, 
-    {value: 'olives', img: '../assets/olives.png'}, 
-    {value: 'peperoni', img: '../assets/peperoni.png'}, 
-    {value: 'pepper', img: '../assets/pepper.png'}, 
-    {value: 'pickles', img: '../assets/pickles.png'}, 
-    {value: 'shampinion', img: '../assets/shampinion.png'}, 
-    {value: 'salad', img: '../assets/salad.png'}, 
-    {value: 'shrimp', img: '../assets/shrimp.png'}, 
-    {value: 'tomato', img: '../assets/tomato.png'},
-    {value: 'nana', img: '../assets/nana.png'}, 
-    {value: 'cherri', img: '../assets/cherri.png'}, 
-    {value: 'green', img: '../assets/green.png'}, 
-    {value: 'oyister', img: '../assets/oyister.png'}
+    {value: 'Berries', img: '../assets/berries.png', price: 2}, 
+    {value: 'Brocoli', img: '../assets/brocoli.png', price: 2}, 
+    {value: 'Camamber', img: '../assets/camamber.png', price: 5}, 
+    {value: 'Cheese', img: '../assets/cheese.png', price: 3}, 
+    {value: 'Chilli', img: '../assets/chilli.png', price: 3}, 
+    {value: 'Garlic', img: '../assets/garlic.png', price: 1}, 
+    {value: 'Ginger', img: '../assets/ginger.png', price: 2}, 
+    {value: 'Lobster', img: '../assets/lobster.png', price: 10}, 
+    {value: 'Mashrooms', img: '../assets/mashrooms.png', price: 5}, 
+    {value: 'Olives', img: '../assets/olives.png', price: 2}, 
+    {value: 'Peperoni', img: '../assets/peperoni.png', price: 7}, 
+    {value: 'Pepper', img: '../assets/pepper.png', price: 4}, 
+    {value: 'Pickles', img: '../assets/pickles.png', price: 3}, 
+    {value: 'Shampinion', img: '../assets/shampinion.png', price: 5}, 
+    {value: 'Salad', img: '../assets/salad.png', price: 4}, 
+    {value: 'Shrimp', img: '../assets/shrimp.png', price: 6}, 
+    {value: 'Tomato', img: '../assets/tomato.png', price: 3},
+    {value: 'Nana', img: '../assets/nana.png', price: 3}, 
+    {value: 'Cherri', img: '../assets/cherri.png', price: 5}, 
+    {value: 'Green', img: '../assets/green.png', price: 4}, 
+    {value: 'Oyister', img: '../assets/oyister.png', price: 4}
   ];
 
 
 const sizes = [
-    {value: 'small', img: '../assets/pizza-small.png'}, 
-    {value: 'medium', img: '../assets/pizza-medium.png'}, 
-    {value: 'large', img: '../assets/pizza-large.png'}, 
-    {value: 'extra large', img: '../assets/pizza-extra.png'}
+    {value: 'Small', img: '../assets/pizza-small.png', price: 10}, 
+    {value: 'Medium', img: '../assets/pizza-medium.png', price: 15}, 
+    {value: 'Large', img: '../assets/pizza-large.png', price: 20}, 
+    {value: 'Extra large', img: '../assets/pizza-extra.png', price: 25}
   ];
 
 

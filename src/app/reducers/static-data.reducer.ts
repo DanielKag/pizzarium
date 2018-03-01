@@ -1,17 +1,17 @@
 import { ImageSelectorItem } from '../models'; 
 import { IAction } from './action'
 
-export interface IDataFromServerState {
+export interface IStaticDataState {
     sizes: ImageSelectorItem[];
     toppings: ImageSelectorItem[];
 }
 
-export const initialState: IDataFromServerState = {
+export const initialState: IStaticDataState = {
     sizes: [],
     toppings: []
 };
 
-export function dataFromServerReducer(state: IDataFromServerState = initialState, action: IAction) {
+export function staticDataReducer(state: IStaticDataState = initialState, action: IAction) {
     
     let newState;
 

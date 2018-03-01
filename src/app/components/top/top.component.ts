@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import { Router } from '@angular/router';
 import { select, NgRedux } from '@angular-redux/store';
@@ -21,7 +21,7 @@ import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
     </div>
   `
 })
-export class TopComponent implements OnInit {
+export class TopComponent implements OnInit, OnDestroy {
 
   public cartLabel$: Observable<string>;
   private items: MenuItem[];
@@ -47,6 +47,9 @@ export class TopComponent implements OnInit {
     })    
 
   }
+
+  // Do not remove this, it is necessary for AutoUnsubscribe
+  ngOnDestroy(){}
 
   navigate (url) {
         this.router.navigateByUrl('/' + url);

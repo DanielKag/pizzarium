@@ -1,6 +1,5 @@
 
-export const HTTP_ACTION = "HTTP_ACTION"
-
+export const HTTP_ACTION = 'HTTP_ACTION'
 
 export const httpMiddleware = store => next => action => {
     if(action.payload && action.payload.isHttp) {
