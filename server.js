@@ -15,7 +15,7 @@ const toppings = [
   {value: 'Chilli', img: '../assets/chilli.png', extraData:{price: 3}}, 
   {value: 'Garlic', img: '../assets/garlic.png', extraData:{price: 1}}, 
   {value: 'Ginger', img: '../assets/ginger.png', extraData:{price: 2}}, 
-  {value: 'Lobster', img: '../assets/lobster.png', pextraData:{rice: 10}}, 
+  {value: 'Lobster', img: '../assets/lobster.png', extraData:{price: 10}}, 
   {value: 'Mashrooms', img: '../assets/mashrooms.png', extraData:{price: 5}}, 
   {value: 'Olives', img: '../assets/olives.png', extraData:{price: 2}}, 
   {value: 'Peperoni', img: '../assets/peperoni.png', extraData:{price: 7}}, 
