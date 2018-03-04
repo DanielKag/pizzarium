@@ -13,8 +13,7 @@ import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
   styleUrls: ['./top.component.css'],
   template: `
     <div class="">
-      <h1 class="top-title">Pizzarium</h1>
-      
+      <img class="top-title" src="../assets/logo4.png">
       <p-tabMenu [model]="items" styleClass="top"></p-tabMenu>
       <span class="top-title">
       </span>

@@ -3,10 +3,10 @@ export class Order {
     selectedToppings: ImageSelectorItem[];
 
     getTotalPrice(): number {
-        let total: number = this.selectedPizza.price;
+        let total: number = this.selectedPizza.extraData.price;
         
         for (let i = 0; i < this.selectedToppings.length; i++) {
-            total += this.selectedToppings[i].price;
+            total += this.selectedToppings[i].extraData.price;
         }
 
         return total;
@@ -16,5 +16,5 @@ export class Order {
 export interface ImageSelectorItem {
   value: string;
   img: string;
-  price: number;
+  extraData: any;
 }

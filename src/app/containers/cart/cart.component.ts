@@ -13,11 +13,11 @@ import { Order } from '../../models';
     <div *ngIf="(orders$ | async).length === 0">No items in cart</div>
     <div class="cart-container">
       <div *ngFor="let order of orders$ | async; let orderIndex = index" class="order">
-        <div>Size: {{ order.selectedPizza.value }} - {{ order.selectedPizza.price }}₪</div>
+        <div>Size: {{ order.selectedPizza.value }} - {{ order.selectedPizza.extraData.price }}₪</div>
         <div *ngIf="order.selectedToppings.length > 0">
         <div>Toppings:</div>
           <div *ngFor="let selectedTopping of order.selectedToppings; let i = index">
-            <img [src]="selectedTopping.img" class="topping-image" [title]="selectedTopping.value" /><span>- {{selectedTopping.price}}₪</span>
+            <img [src]="selectedTopping.img" class="topping-image" [title]="selectedTopping.value" /><span>- {{selectedTopping.extraData.price}}₪</span>
           </div>
         </div>
         <div *ngIf="order.selectedToppings.length === 0">
@@ -51,12 +51,12 @@ export class CartComponent {
   public clearCart(): void {
     this.ngRedux.dispatch({type: 'CLEAR_CART'});
     this.messageService.add({severity:'success', summary:'Pizzarium', detail:'Your cart was cleared!'});
-    setTimeout(() => this.router.navigateByUrl('/order'), 1500);
+    setTimeout(() => this.router.navigateByUrl('/order'), 3000);
   }
 
   public order(): void {
     this.ngRedux.dispatch({type: 'CLEAR_CART'});
     this.messageService.add({severity:'success', summary:'Pizzarium', detail:'Your cart has been shipped to Hapsagot 9, Petah Tikva'});
-    setTimeout(() => this.router.navigateByUrl('/order'), 1500);
+    setTimeout(() => this.router.navigateByUrl('/order'), 3000);
   }
 }
