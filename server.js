@@ -8,7 +8,7 @@ const app = express();
 
 
 const toppings = [
-    {value: 'Berries', img: '../assets/berries.png', extraData:{price: 2}}, 
+    {value: 'Berries', img: '../assets/berries.png', extraData:{price: 5}}, 
   {value: 'Brocoli', img: '../assets/brocoli.png', extraData:{price: 2}}, 
   {value: 'Camamber', img: '../assets/camamber.png', extraData:{price: 5}}, 
   {value: 'Cheese', img: '../assets/cheese.png', extraData:{price: 3}}, 
