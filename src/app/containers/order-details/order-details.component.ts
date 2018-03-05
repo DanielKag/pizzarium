@@ -27,7 +27,6 @@ export class OrderDetailsComponent {
   @ViewChild("sizesSelector") sizesRef: ImageSelectorComponent;
   @ViewChild("toppingsSelector") toppingsRef: ImageSelectorComponent;
 
-  public msgs;
   private currentOrder: Order;
 
   constructor(private ngRedux: NgRedux<IUIState>, private messageService: MessageService) {

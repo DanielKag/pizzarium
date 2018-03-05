@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import {MenuItem} from 'primeng/api';
 import { Router } from '@angular/router';
 import { select, NgRedux } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
@@ -23,7 +23,7 @@ import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 export class TopComponent implements OnInit, OnDestroy {
 
   public cartLabel$: Observable<string>;
-  public items: MenuItem[];
+  private items: MenuItem[];
   private cartSubscription: Subscription;
 
   constructor(private router: Router, private ngRedux: NgRedux<IPizzariumState>) { }
