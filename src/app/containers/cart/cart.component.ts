@@ -9,6 +9,7 @@ import { Order } from '../../models';
   selector: 'app-cart',  
   styleUrls: ['./cart.component.css'],
   template: `
+  Check
     <p-growl [(value)]="msgs"></p-growl>
     <div *ngIf="(orders$ | async).length === 0">No items in cart</div>
     <div class="cart-container">
