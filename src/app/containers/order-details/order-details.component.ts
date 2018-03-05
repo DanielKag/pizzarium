@@ -11,8 +11,12 @@ import { IPizzariumState } from '../../app.module';
   styleUrls: ['./order-details.component.css'],
   template: `
     <p-growl [(value)]="msgs"></p-growl>
-    <image-selector #sizesSelector *ngIf="sizes$ | async" [data]="sizes$ | async" (selectionChanged)=onSizeSelectedChanged($event)></image-selector>
-    <image-selector #toppingsSelector *ngIf="toppings$ | async" [data]="toppings$ | async" [multiSelect]="true" [itemsInRow]="7" (selectionChanged)=onToppingsSelectedChanged($event)></image-selector>
+    <ng-container *ngIf="sizes$ | async as sizes">
+      <image-selector #sizesSelector [data]="sizes" (selectionChanged)=onSizeSelectedChanged($event)></image-selector>
+    </ng-container>
+    <ng-container *ngIf="toppings$ | async as toppings">
+      <image-selector #toppingsSelector [data]="toppings" [multiSelect]="true" [itemsInRow]="7" (selectionChanged)=onToppingsSelectedChanged($event)></image-selector>
+    </ng-container>
     <div class="order-details-footer"> 
       <p-button label="Clear Order" icon="fa fa-trash" (click)=clear()></p-button>
       <p-button label="Add" icon="fa fa-cart-plus" (click)="addOrder()"></p-button>
@@ -26,6 +30,7 @@ export class OrderDetailsComponent {
   @ViewChild("sizesSelector") sizesRef: ImageSelectorComponent;
   @ViewChild("toppingsSelector") toppingsRef: ImageSelectorComponent;
 
+  public msgs;
   private currentOrder: Order;
 
   constructor(private ngRedux: NgRedux<IPizzariumState>, private messageService: MessageService) {

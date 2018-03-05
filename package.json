@@ -5,9 +5,11 @@
   "scripts": {
     "ng": "ng",
     "start": "concurrently --kill-others \"npm run application\" \"npm run server\"",
-    "application": "ng serve",
+    "application": "ng serve --aot",
     "server": "nodemon server.js",
-    "build": "ng build --prod",
+    "build": "ng build --prod --aot",
+    "build-with-stats": "ng build --prod --aot --stats-json",
+    "bundle-report": "webpack-bundle-analyzer dist/stats.json",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -54,6 +56,7 @@
     "protractor": "~5.1.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
-    "typescript": "~2.5.3"
+    "typescript": "~2.5.3",
+    "webpack-bundle-analyzer": "^2.11.1"
   }
 }

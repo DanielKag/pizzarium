@@ -23,7 +23,7 @@ import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 export class TopComponent implements OnInit, OnDestroy {
 
   public cartLabel$: Observable<string>;
-  private items: MenuItem[];
+  public items: MenuItem[];
   private cartSubscription: Subscription;
 
   constructor(private router: Router, private ngRedux: NgRedux<IPizzariumState>) { }

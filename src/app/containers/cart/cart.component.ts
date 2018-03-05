@@ -10,26 +10,30 @@ import { IPizzariumState } from '../../app.module';
   styleUrls: ['./cart.component.css'],
   template: `
     <p-growl [(value)]="msgs"></p-growl>
-    <div *ngIf="(orders$ | async)?.length === 0">No items in cart</div>
-    <div class="cart-container">
-      <div *ngFor="let order of orders$ | async; let orderIndex = index" class="order">
-        <div>Size: {{ order.selectedPizza.value }} - {{ order.selectedPizza.extraData.price }}₪</div>
-        <div *ngIf="order.selectedToppings.length > 0">
-        <div>Toppings:</div>
-          <div *ngFor="let selectedTopping of order.selectedToppings; let i = index">
-            <img [src]="selectedTopping.img" class="topping-image" [title]="selectedTopping.value" /><span>- {{selectedTopping.extraData.price}}₪</span>
+    <ng-container *ngIf="orders$ | async as orders">
+      <div *ngIf="orders.length > 0; else noOrders" class="cart-container">
+        <div *ngFor="let order of orders; let orderIndex = index" class="order">
+          <div>Size: {{ order.selectedPizza.value }} - {{ order.selectedPizza.price }}₪</div>
+          <div *ngIf="order.selectedToppings.length > 0; else noToppings">
+            <div>Toppings:</div>
+            <div *ngFor="let selectedTopping of order.selectedToppings; let i = index">
+              <img [src]="selectedTopping.img" class="topping-image" [title]="selectedTopping.value" /><span>- {{selectedTopping.price}}₪</span>
+            </div>
+          </div>
+          <ng-template #noToppings>
+            No toppings selected.
+          </ng-template>
+          <div class="order-pizza-size">
+            <div>Total: {{ order.getTotalPrice() }}₪</div>
+            <i class="delete-pizza fa fa-times" (click)="deletePizzaFromCart(order, orderIndex)"></i>
           </div>
         </div>
-        <div *ngIf="order.selectedToppings.length === 0">
-          No toppings selected.
-        </div>
-        <div class="order-pizza-size">
-          <div>Total: {{ order.getTotalPrice() }}₪</div>
-          <i class="delete-pizza fa fa-times" (click)="deletePizzaFromCart(order, orderIndex)"></i>
-        </div>
       </div>
-    </div>
-    <h2>Total price: {{ totalPrice$ | async }}₪</h2>
+      <ng-template #noOrders>
+        No items in cart
+      </ng-template>
+      <h2>Total price: {{ totalPrice$ | async }}₪</h2>
+    </ng-container>
     <div class="cart-footer"> 
       <p-button label="Clear Cart" icon="fa fa-trash" (click)="clearCart()"></p-button>
       <p-button label="Order" icon="fa fa-fw fa-check" (click)="order()"></p-button>
@@ -40,6 +44,8 @@ export class CartComponent {
 
   @select(['ui', 'orders']) orders$;
   @select(['ui', 'totalPrice']) totalPrice$;
+
+  public msgs;
 
   constructor(private ngRedux: NgRedux<IPizzariumState>, private messageService: MessageService, private router: Router) { }
 
