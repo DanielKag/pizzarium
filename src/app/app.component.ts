@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
-import { IStaticDataState } from './reducers/static-data.reducer';
+import { IPizzariumState } from './app.module';
 
 @Component({
   selector: 'app-root',  
@@ -11,7 +11,7 @@ import { IStaticDataState } from './reducers/static-data.reducer';
   `
 })
 export class AppComponent {
-  constructor(private ngRedux: NgRedux<IStaticDataState>) {
+  constructor(private ngRedux: NgRedux<IPizzariumState>) {
     this.ngRedux.dispatch({
       type: 'GET_TOPPINGS',
       payload: {

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgReduxModule } from '@angular-redux/store'
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { OrderDetailsComponent } from './order-details.component';
 import { ImageSelectorComponent } from '../../components/image-selector/image-selector.component';
 import { GrowlModule } from 'primeng/growl';
@@ -14,14 +13,12 @@ import { MessageService } from 'primeng/components/common/messageservice';
     ImageSelectorComponent
   ],
   imports: [
-    NgReduxModule,
-    BrowserAnimationsModule,
+    CommonModule,
     FormsModule,
     ButtonModule,
-    GrowlModule,
+    GrowlModule
   ],
-  providers: [MessageService],
-  bootstrap: [OrderDetailsComponent]
+  providers: [MessageService]
 })
 export class OrderDetailsModule {
 

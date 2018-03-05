@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { select, NgRedux } from '@angular-redux/store';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice'
-import { IUIState } from '../../reducers/ui.reducer';
 import { Order } from '../../models';
+import { IPizzariumState } from '../../app.module';
 
 @Component({
   selector: 'app-cart',  
   styleUrls: ['./cart.component.css'],
   template: `
     <p-growl [(value)]="msgs"></p-growl>
-    <div *ngIf="(orders$ | async).length === 0">No items in cart</div>
+    <div *ngIf="(orders$ | async)?.length === 0">No items in cart</div>
     <div class="cart-container">
       <div *ngFor="let order of orders$ | async; let orderIndex = index" class="order">
         <div>Size: {{ order.selectedPizza.value }} - {{ order.selectedPizza.extraData.price }}₪</div>
@@ -41,7 +41,7 @@ export class CartComponent {
   @select(['ui', 'orders']) orders$;
   @select(['ui', 'totalPrice']) totalPrice$;
 
-  constructor(private ngRedux: NgRedux<IUIState>, private messageService: MessageService, private router: Router) { }
+  constructor(private ngRedux: NgRedux<IPizzariumState>, private messageService: MessageService, private router: Router) { }
 
   public deletePizzaFromCart(order: Order, pizzaIndex: number): void {
     this.ngRedux.dispatch({type: 'DELETE_ORDER', payload: {order, pizzaIndex}});
