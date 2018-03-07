@@ -1,15 +1,10 @@
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store'
 import { combineReducers } from 'redux';
-
 import { AppComponent } from './app.component';
-import { OrderDetailsComponent } from './containers/order-details/order-details.component';
-import { OrderDetailsModule } from './containers/order-details/order-details.module';
-import { CartModule } from './containers/cart/cart.module';
-import { CartComponent } from './containers/cart/cart.component';
 import { TopComponent } from './components/top/top.component';
 import { environment } from '../environments/environment'
 import { IStaticDataState, staticDataReducer } from './reducers/static-data.reducer';
@@ -21,8 +16,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
 
 const routes: Routes = [
   { path: '', redirectTo: 'order', pathMatch: 'full' },
-  { path: 'order', component: OrderDetailsComponent },
-  { path: 'cart', component: CartComponent },
+  { path: 'order', loadChildren: './containers/order-details/order-details.module#OrderDetailsModule' },
+  { path: 'cart', loadChildren: './containers/cart/cart.module#CartModule' },
 ];
 
 export interface IPizzariumState {
@@ -40,9 +35,7 @@ export interface IPizzariumState {
     NgReduxModule,
     BrowserAnimationsModule,
     FormsModule,
-    RouterModule.forRoot(routes),
-    OrderDetailsModule,
-    CartModule,
+    RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules}),
     TabMenuModule
   ],
   bootstrap: [AppComponent]

@@ -6,6 +6,8 @@ import { ImageSelectorComponent } from '../../components/image-selector/image-se
 import { GrowlModule } from 'primeng/growl';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { RouterModule } from '@angular/router';
+import { CartComponent } from '../cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { MessageService } from 'primeng/components/common/messageservice';
     CommonModule,
     FormsModule,
     ButtonModule,
-    GrowlModule
+    GrowlModule,
+    RouterModule.forChild([{path:'', component: OrderDetailsComponent}])
   ],
   providers: [MessageService]
 })
