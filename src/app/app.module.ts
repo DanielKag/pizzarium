@@ -13,6 +13,8 @@ import { httpMiddleware } from './reducers/http.middleware';
 
 // PrimeNG
 import { TabMenuModule } from 'primeng/tabmenu';
+import { MessageService } from 'primeng/components/common/messageservice';
+import { GrowlModule } from 'primeng/growl';
 
 const routes: Routes = [
   { path: '', redirectTo: 'order', pathMatch: 'full' },
@@ -36,8 +38,10 @@ export interface IPizzariumState {
     BrowserAnimationsModule,
     FormsModule,
     RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules}),
-    TabMenuModule
+    TabMenuModule,
+    GrowlModule
   ],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

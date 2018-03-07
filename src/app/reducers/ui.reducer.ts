@@ -1,15 +1,17 @@
-import { IAction } from './action'
-import { ImageSelectorItem } from '../models'
+import { IAction } from './action';
+import { ImageSelectorItem } from '../models';
 import { Order } from '../models';
 
 export interface IUIState {
-    orders: Order[],
-    totalPrice: number
+    orders: Order[];
+    totalPrice: number;
+    message: any;
 }
 
 export const initialState: IUIState = {
     orders: [],
-    totalPrice: 0
+    totalPrice: 0,
+    message: null
 };
 
 export function uiReducer(state: IUIState = initialState, action: IAction) {
@@ -26,6 +28,9 @@ export function uiReducer(state: IUIState = initialState, action: IAction) {
             break;
         case 'CLEAR_CART':
             newState = Object.assign({}, state, {orders: [], totalPrice: 0})
+            break;
+        case 'SHOW_MESSAGE':
+            newState = Object.assign({}, state, {message: action.payload});
             break;
         default:
             newState = state;
