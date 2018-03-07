@@ -1,16 +1,15 @@
-import { MessageService } from 'primeng/components/common/messageservice'
+import { MessageService } from 'primeng/components/common/messageservice';
 import { select, NgRedux } from '@angular-redux/store';
 import { Component, ViewChild} from '@angular/core';
-import { ImageSelectorItem } from '../../models'
+import { ImageSelectorItem } from '../../models';
 import { Order } from '../../models';
 import { ImageSelectorComponent } from '../../components/image-selector/image-selector.component';
 import { IPizzariumState } from '../../app.module';
 
 @Component({
-  selector: 'app-order-details',  
+  selector: 'app-order-details',
   styleUrls: ['./order-details.component.css'],
   template: `
-    <p-growl [(value)]="msgs"></p-growl>
     <image-selector #sizesSelector *ngIf="sizes$ | async" [data]="sizes$ | async" (selectionChanged)=onSizeSelectedChanged($event)></image-selector>
     <image-selector #toppingsSelector *ngIf="toppings$ | async" [data]="toppings$ | async" [multiSelect]="true" [itemsInRow]="7" (selectionChanged)=onToppingsSelectedChanged($event)></image-selector>
     <div class="order-details-footer"> 
@@ -28,7 +27,7 @@ export class OrderDetailsComponent {
 
   private currentOrder: Order;
 
-  constructor(private ngRedux: NgRedux<IPizzariumState>, private messageService: MessageService) {
+  constructor(private ngRedux: NgRedux<IPizzariumState>) {
     this.resetCurrentOrder();
   }
 
@@ -42,9 +41,9 @@ export class OrderDetailsComponent {
  
   public addOrder(): void {
     this.ngRedux.dispatch({type: 'ADD_ORDER', payload: this.currentOrder});
-    this.messageService.add({severity:'success', summary:'Pizzarium', detail:'Your order was added to the cart'});
-
-    this.clear();    
+    this.ngRedux.dispatch({type: 'SHOW_MESSAGE',
+                           payload: {severity: 'success', summary: 'Pizzarium', detail: 'Your order was added to the cart'}});
+    this.clear();
   }
 
   public clear(): void {
