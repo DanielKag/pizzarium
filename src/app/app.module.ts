@@ -48,7 +48,7 @@ export interface IPizzariumState {
     TabMenuModule,
     GrowlModule
   ],
-  providers: [MessageService]
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
