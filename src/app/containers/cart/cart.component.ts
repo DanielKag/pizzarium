@@ -1,14 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { select, NgRedux } from '@angular-redux/store';
 import { Router } from '@angular/router';
 import { Order } from '../../models';
 import { IPizzariumState } from '../../app.module';
+import { Message } from 'primeng/components/common/api';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { map, filter, tap } from 'rxjs/operators';
+import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 
+@AutoUnsubscribe() 
 @Component({
   selector: 'app-cart',  
   styleUrls: ['./cart.component.css'],
   template: `
     <ng-container *ngIf="orders$ | async as orders">
+      <p-messages [(value)]="msgs"></p-messages>
       <div *ngIf="orders.length > 0; else noOrders" class="cart-container">
         <div *ngFor="let order of orders; let orderIndex = index" class="order">
           <div>Size: {{ order.selectedPizza.value }} - {{ order.selectedPizza.price }}₪</div>
@@ -38,14 +45,43 @@ import { IPizzariumState } from '../../app.module';
     </div>
   `
 })
-export class CartComponent {
+export class CartComponent implements OnInit, OnDestroy {
 
-  @select(['ui', 'orders']) orders$;
+  @select(['ui', 'orders']) orders$ : Observable<Order[]>;
   @select(['ui', 'totalPrice']) totalPrice$;
+  
+  // Public:
+  public msgs: Message[] = [];
 
-  public msgs;
+  // private:
+  private promotionSubscription: Subscription;
+  private readonly PROMO_FOR_9_ORDERS = 'On 9 Orders & Above - get 1 year subscription for the gym for free!';
+  private readonly PROMO_FOR_6_ORDERS = 'On 6 Orders - get another Pizza + Garlic bread for free!';
+  private readonly PROMO_FOR_3_ORDERS = 'On 3 Orders - get another Pizza for free!';
 
+  // Ctor:
   constructor(private ngRedux: NgRedux<IPizzariumState>, private router: Router) { }
+  
+  // RXJS solution...
+  ngOnInit() {
+    this.promotionSubscription = this.orders$.pipe(
+      map((orders: Order[]) => orders.length),
+      filter((ordersCount: number) => ordersCount >= 3),
+      tap((ordersCount: number) => this.SetPromotionMessage(this.PROMO_FOR_3_ORDERS)),
+      filter((ordersCount: number) => ordersCount >= 6),
+      tap((ordersCount: number) => this.SetPromotionMessage(this.PROMO_FOR_6_ORDERS)),
+      filter((ordersCount: number) => ordersCount >= 9),
+      tap((ordersCount: number) => this.SetPromotionMessage(this.PROMO_FOR_9_ORDERS)),
+      ).subscribe( val => {
+        // We just need it to listen the observable, all logic is made through the piping!
+      })
+    
+  }
+
+  private SetPromotionMessage(detailText: string) {
+    this.msgs = [];
+    this.msgs.push({severity:'info', summary:'Promotions', detail: detailText});
+  }
 
   public deletePizzaFromCart(order: Order, pizzaIndex: number): void {
     this.ngRedux.dispatch({type: 'DELETE_ORDER', payload: {order, pizzaIndex}});
@@ -63,4 +99,7 @@ export class CartComponent {
     this.ngRedux.dispatch({type: 'SHOW_MESSAGE', payload: {severity:'success', summary:'Pizzarium', detail:'Your cart has been shipped to Hapsagot 9, Petah Tikva'}});
     this.router.navigateByUrl('/order');
   }
+
+  // Do not remove this, it is necessary for AutoUnsubscribe
+  ngOnDestroy() {}
 }
