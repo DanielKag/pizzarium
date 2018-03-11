@@ -18,11 +18,11 @@ import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
       <p-messages [(value)]="msgs"></p-messages>
       <div *ngIf="orders.length > 0; else noOrders" class="cart-container">
         <div *ngFor="let order of orders; let orderIndex = index" class="order">
-          <div>Size: {{ order.selectedPizza.value }} - {{ order.selectedPizza.price }}₪</div>
+          <div>Size: {{ order.selectedPizza.value }} - {{ order.selectedPizza.extraData.price }}₪</div>
           <div *ngIf="order.selectedToppings.length > 0; else noToppings">
             <div>Toppings:</div>
             <div *ngFor="let selectedTopping of order.selectedToppings; let i = index">
-              <img [src]="selectedTopping.img" class="topping-image" [title]="selectedTopping.value" /><span>- {{selectedTopping.price}}₪</span>
+              <img [src]="selectedTopping.img" class="topping-image" [title]="selectedTopping.value" /><span>- {{selectedTopping.extraData.price}}₪</span>
             </div>
           </div>
           <ng-template #noToppings>
